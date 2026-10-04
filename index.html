@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MoneyTempo</title>
+  <meta name="description" content="Private personal finance tracking and intelligence." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white shadow">
+    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 bg-indigo-600 rounded flex items-center justify-center text-white font-bold">MT</div>
+        <span class="font-semibold text-lg">MoneyTempo</span>
+      </div>
+      <nav class="space-x-6 text-sm hidden md:block">
+        <a class="hover:underline" href="privacy-policy.html">Privacy Policy</a>
+        <a class="hover:underline" href="terms.html">Terms</a>
+        <a class="hover:underline" href="mailto:support@yourdomain.example">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-16">
+    <section class="text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold">MoneyTempo</h1>
+      <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Private personal finance tracking and intelligence.</p>
+      <ul class="mt-6 text-left inline-block text-gray-700">
+        <li>• Automatic transaction tracking</li>
+        <li>• Budget and spending insights</li>
+        <li>• Google Drive encrypted backup</li>
+        <li>• On-device intelligence</li>
+        <li>• Data export and recovery</li>
+      </ul>
+
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="#" class="bg-indigo-600 text-white px-5 py-3 rounded-md">Get started</a>
+        <a href="privacy-policy.html" class="px-5 py-3 border rounded-md">Privacy Policy</a>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold">About</h2>
+      <p class="mt-4 text-gray-600">
+        MoneyTempo helps you keep your finances private while giving actionable insights.
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t mt-16">
+    <div class="max-w-4xl mx-auto px-6 py-6 text-sm text-gray-600">
+      © <span id="year"></span> MoneyTempo — <a href="privacy-policy.html" class="underline">Privacy Policy</a> · <a href="terms.html" class="underline">Terms</a> · <a href="mailto:support@yourdomain.example" class="underline">Support</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
