@@ -1,20 +1,1043 @@
-MoneyTempo
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="color-scheme" content="dark light">
 
-Private, intelligent personal finance.
+  <title>MoneyTempo — Private Expense Tracking from Financial SMS</title>
+  <meta name="description" content="MoneyTempo turns supported bank, card and UPI financial SMS into a private money timeline on your device. Track spending, budgets, cards, Safe-to-Spend, net worth and optional on-device AI without a bank login.">
+  <meta name="robots" content="index,follow">
 
-Understand your spending, budgets, accounts and financial
-patterns with privacy-first, on-device intelligence.
+  <meta property="og:title" content="MoneyTempo — Understand your money without giving up control">
+  <meta property="og:description" content="Automatic financial SMS tracking, Safe-to-Spend, budgets, cards and optional on-device MoneyTempoAI — no bank login required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://moneytempo-dev.github.io/moneytempo-site/">
 
-[Privacy Policy]   [Terms]   [Support]
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-soft: #101014;
+      --card: rgba(255,255,255,.045);
+      --card-strong: rgba(255,255,255,.072);
+      --text: #f5f3ee;
+      --muted: #aaa8a1;
+      --muted-2: #7f7c74;
+      --line: rgba(255,255,255,.10);
+      --gold: #d8a93b;
+      --gold-2: #f0cc6d;
+      --gold-soft: rgba(216,169,59,.13);
+      --ok: #89d6a4;
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --radius: 24px;
+      --max: 1180px;
+    }
 
-MoneyTempoAI
-Optional offline AI designed to analyze your financial data
-on your device.
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 78% 0%, rgba(216,169,59,.10), transparent 34rem),
+        radial-gradient(circle at 8% 18%, rgba(216,169,59,.055), transparent 25rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-Privacy First
-Your financial records remain on your device during normal use.
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
 
-Support
-financemoneytempo@gmail.com
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
 
-© 2026 MoneyTempo
+    .nav-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(9,9,11,.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 760;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 35% 28%, #f9e8a5 0 3%, transparent 4%),
+        radial-gradient(circle, #131313 45%, #060606 47% 57%, #b77b09 59% 63%, #f0c85b 68%, #8c5a04 75%, #17130a 80%);
+      box-shadow: 0 0 0 1px rgba(240,200,91,.28), 0 8px 26px rgba(216,169,59,.16);
+      color: #f6d873;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 14px;
+      color: #c7c4bd;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      border: 1px solid rgba(216,169,59,.30);
+      background: var(--gold-soft);
+      color: var(--gold-2) !important;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 92px 0 64px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(216,169,59,.24);
+      background: rgba(216,169,59,.075);
+      color: #e9c35f;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-2);
+      box-shadow: 0 0 0 5px rgba(216,169,59,.11);
+    }
+
+    h1 {
+      margin: 25px auto 20px;
+      max-width: 1000px;
+      font-size: clamp(3rem, 7.4vw, 6.9rem);
+      line-height: .96;
+      letter-spacing: -.065em;
+      font-weight: 780;
+    }
+
+    .gold-text {
+      color: var(--gold-2);
+      background: linear-gradient(120deg, #f6e5a5 0%, #d9a631 46%, #f4d87f 84%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #bebbb4;
+      font-size: clamp(1.06rem, 2vw, 1.28rem);
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 14px;
+      padding: 0 19px;
+      text-decoration: none;
+      font-weight: 760;
+      font-size: 14px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      color: #151006;
+      background: linear-gradient(135deg, #f2d16e, #c68a17);
+      box-shadow: 0 12px 38px rgba(198,138,23,.19);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      color: #e5e2dc;
+    }
+
+    .hero-proof {
+      margin-top: 42px;
+      display: flex;
+      justify-content: center;
+      gap: 22px 34px;
+      flex-wrap: wrap;
+      color: #918e87;
+      font-size: 13px;
+    }
+
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-proof span::before {
+      content: "✓";
+      color: var(--ok);
+      font-weight: 800;
+    }
+
+    .product-stage {
+      margin-top: 58px;
+      position: relative;
+      padding: 0 0 35px;
+    }
+
+    .product-stage::before {
+      content: "";
+      position: absolute;
+      inset: 15% 10% 0;
+      background: radial-gradient(circle, rgba(216,169,59,.12), transparent 64%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .dashboard {
+      position: relative;
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      border: 1px solid rgba(255,255,255,.085);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #121216, #0d0d10);
+      padding: 22px;
+      min-height: 180px;
+      overflow: hidden;
+    }
+
+    .panel-label {
+      color: #918e87;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .safe-number {
+      margin-top: 10px;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 780;
+      letter-spacing: -.055em;
+    }
+
+    .safe-sub { color: #9f9c95; font-size: 14px; }
+
+    .bar-wrap { margin-top: 28px; }
+    .bar-head { display:flex; justify-content:space-between; gap:12px; font-size:12px; color:#a8a59e; }
+    .bar {
+      margin-top: 9px;
+      height: 8px;
+      border-radius: 999px;
+      background: #202026;
+      overflow: hidden;
+    }
+    .bar > i {
+      display:block;
+      width: 64%;
+      height:100%;
+      border-radius:inherit;
+      background: linear-gradient(90deg, #a96f10, #f2cc63);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.075);
+      background: rgba(255,255,255,.028);
+    }
+    .mini-card strong { display:block; font-size: 16px; margin-top: 7px; }
+    .mini-card small { color:#8f8c86; }
+
+    .ai-strip {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 108px;
+      background:
+        radial-gradient(circle at 10% 50%, rgba(216,169,59,.12), transparent 30%),
+        linear-gradient(180deg, #111114, #0c0c0f);
+    }
+
+    .ai-strip p { margin:5px 0 0; color:#9c9992; font-size:14px; }
+    .ai-chip {
+      white-space: nowrap;
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold-2);
+      font-size: 12px;
+      font-weight: 750;
+      border: 1px solid rgba(216,169,59,.18);
+    }
+
+    section { padding: 86px 0; }
+
+    .section-kicker {
+      color: #d8b24e;
+      font-size: 12px;
+      font-weight: 780;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 1.03;
+      letter-spacing: -.052em;
+    }
+
+    .section-intro {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: #aaa79f;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .feature-grid {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .feature {
+      grid-column: span 4;
+      min-height: 265px;
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.021));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature.large { grid-column: span 8; }
+    .feature.half { grid-column: span 6; }
+
+    .feature::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      right: -70px;
+      top: -70px;
+      background: rgba(216,169,59,.055);
+      filter: blur(2px);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(216,169,59,.20);
+      background: var(--gold-soft);
+      color: var(--gold-2);
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    .feature h3 {
+      margin: 0 0 9px;
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+
+    .feature p {
+      margin: 0;
+      color: #a7a49c;
+      font-size: 15px;
+      line-height: 1.75;
+      max-width: 620px;
+    }
+
+    .feature .tagline {
+      margin-top: 18px;
+      color: #ddd8cf;
+      font-size: 13px;
+    }
+
+    .steps {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      padding: 24px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.028);
+      border: 1px solid var(--line);
+    }
+
+    .step-num {
+      width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      background: var(--gold-soft);
+      color: var(--gold-2);
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    .step h3 { margin:0 0 8px; font-size:17px; }
+    .step p { margin:0; color:#96938d; font-size:13px; line-height:1.65; }
+
+    .use-grid {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .use-card {
+      display:flex;
+      gap:18px;
+      padding: 23px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.027);
+    }
+
+    .use-symbol {
+      flex:0 0 auto;
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      color:#f0cd70;
+      background:rgba(216,169,59,.09);
+    }
+
+    .use-card h3 { margin:0 0 5px; font-size:17px; }
+    .use-card p { margin:0; color:#97948e; font-size:14px; }
+
+    .privacy-card {
+      margin-top: 42px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      border:1px solid rgba(216,169,59,.16);
+      border-radius: 30px;
+      overflow:hidden;
+      background: linear-gradient(135deg, rgba(216,169,59,.075), rgba(255,255,255,.026) 45%, rgba(255,255,255,.018));
+    }
+
+    .privacy-copy { padding: 42px; }
+    .privacy-copy h3 { margin:0; font-size:32px; letter-spacing:-.04em; }
+    .privacy-copy p { color:#aaa79f; margin:14px 0 0; max-width:620px; }
+
+    .privacy-list {
+      padding: 30px;
+      border-left:1px solid rgba(255,255,255,.08);
+      display:grid;
+      gap:10px;
+      align-content:center;
+    }
+
+    .privacy-item {
+      display:flex;
+      gap:11px;
+      align-items:flex-start;
+      color:#d7d3cb;
+      font-size:14px;
+    }
+    .privacy-item::before {
+      content:"✓";
+      color:var(--ok);
+      font-weight:800;
+    }
+
+    .notice {
+      margin-top: 18px;
+      color:#87847e;
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    .faq {
+      margin-top: 38px;
+      border-top:1px solid var(--line);
+    }
+
+    details {
+      border-bottom:1px solid var(--line);
+      padding: 20px 0;
+    }
+    summary {
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      font-weight:700;
+      font-size:16px;
+    }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:"+"; color:var(--gold-2); font-size:20px; }
+    details[open] summary::after { content:"–"; }
+    details p { max-width:760px; color:#9e9b94; margin:13px 0 4px; }
+
+    .final-cta {
+      padding: 0 0 96px;
+    }
+
+    .cta-card {
+      padding: 54px 30px;
+      text-align:center;
+      border-radius:32px;
+      border:1px solid rgba(216,169,59,.17);
+      background:
+        radial-gradient(circle at 50% -20%, rgba(216,169,59,.16), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+    }
+    .cta-card h2 { margin:0 auto; max-width:850px; }
+    .cta-card p { max-width:670px; margin:18px auto 0; color:#a7a49d; }
+
+    footer {
+      border-top:1px solid var(--line);
+      padding: 34px 0 44px;
+      color:#85827c;
+      font-size:13px;
+    }
+
+    .footer-row {
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .footer-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+    }
+    .footer-links a { text-decoration:none; }
+    .footer-links a:hover { color:#d8d4cc; }
+
+    .legal {
+      margin-top:24px;
+      max-width:880px;
+      color:#6f6c66;
+      font-size:11px;
+      line-height:1.65;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display:none;
+        position:absolute;
+        top:72px;
+        left:20px;
+        right:20px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:10px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        background:#111114;
+        box-shadow:var(--shadow);
+      }
+      .nav-links.open { display:flex; }
+      .nav-links a { padding:13px; }
+      .menu-btn { display:block; }
+      .dashboard { grid-template-columns:1fr; }
+      .ai-strip { grid-column:auto; align-items:flex-start; flex-direction:column; }
+      .feature, .feature.large, .feature.half { grid-column: span 6; }
+      .steps { grid-template-columns: repeat(2,1fr); }
+      .privacy-card { grid-template-columns:1fr; }
+      .privacy-list { border-left:0; border-top:1px solid rgba(255,255,255,.08); }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width:min(calc(100% - 28px), var(--max)); }
+      .hero { padding-top:68px; }
+      h1 { font-size:clamp(2.65rem, 14vw, 4.15rem); }
+      section { padding:64px 0; }
+      .product-stage { margin-top:38px; }
+      .dashboard { padding:8px; border-radius:24px; }
+      .panel { padding:18px; border-radius:18px; }
+      .mini-grid { grid-template-columns:1fr; }
+      .feature, .feature.large, .feature.half { grid-column:1 / -1; min-height:auto; }
+      .feature-grid { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr; }
+      .use-grid { grid-template-columns:1fr; }
+      .privacy-copy { padding:28px 24px; }
+      .privacy-list { padding:24px; }
+      .cta-card { padding:42px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-shell">
+    <div class="wrap">
+      <nav aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="MoneyTempo home">
+          <span class="brand-mark" aria-hidden="true">MT</span>
+          <span>MoneyTempo</span>
+        </a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+        <div class="nav-links" id="navLinks">
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#use-cases">Use cases</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#faq">FAQ</a>
+          <a class="nav-cta" href="privacy-policy.html">Privacy policy</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Google Play closed testing in progress</span>
+        <h1>Know your money.<br><span class="gold-text">Without handing it over.</span></h1>
+        <p class="hero-copy">
+          MoneyTempo turns supported bank, card and UPI financial SMS into a private money timeline on your device — then helps you understand spending, bills, budgets and what is actually safe to spend.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#how">See how MoneyTempo works <span aria-hidden="true">→</span></a>
+          <a class="btn btn-secondary" href="privacy-policy.html">Read our privacy approach</a>
+        </div>
+
+        <div class="hero-proof" aria-label="Product highlights">
+          <span>No bank login required</span>
+          <span>No MoneyTempo account required</span>
+          <span>Core SMS processing on-device</span>
+          <span>Encrypted local financial records</span>
+        </div>
+
+        <div class="product-stage" aria-label="MoneyTempo feature overview">
+          <div class="dashboard">
+            <div class="panel">
+              <div class="panel-label">Safe-to-Spend</div>
+              <div class="safe-number">₹42,850</div>
+              <div class="safe-sub">Example only — based on your recorded balance, buffer and upcoming commitments.</div>
+              <div class="bar-wrap">
+                <div class="bar-head"><span>Available after commitments</span><span>64%</span></div>
+                <div class="bar"><i></i></div>
+              </div>
+            </div>
+
+            <div class="panel mini-grid">
+              <div class="mini-card">
+                <small>Automatic tracking</small>
+                <strong>Bank &amp; UPI SMS</strong>
+              </div>
+              <div class="mini-card">
+                <small>Planning</small>
+                <strong>Budgets &amp; bills</strong>
+              </div>
+              <div class="mini-card">
+                <small>Cards</small>
+                <strong>Statements &amp; due dates</strong>
+              </div>
+              <div class="mini-card">
+                <small>Overview</small>
+                <strong>Net worth &amp; timeline</strong>
+              </div>
+            </div>
+
+            <div class="panel ai-strip">
+              <div>
+                <div class="panel-label">MoneyTempoAI</div>
+                <strong>Ask questions about the records already in MoneyTempo.</strong>
+                <p>The optional model is downloaded only when you choose to install it; supported analysis runs on-device after installation.</p>
+              </div>
+              <span class="ai-chip">Optional on-device AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-kicker">Built around the real money flow</div>
+        <h2>Automatic where it should be. Reviewable where it matters.</h2>
+        <p class="section-intro">
+          MoneyTempo is designed around a simple idea: financial tracking should save you time without making your records feel like a black box. Automation brings transactions in; you stay in control of what they mean.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature large">
+            <div class="icon" aria-hidden="true">↯</div>
+            <h3>Financial SMS becomes a usable ledger</h3>
+            <p>
+              With your permission, MoneyTempo reads supported bank, credit-card and UPI/payment alerts on your device and identifies financial transactions. Relevant financial messages stay with their records locally so you can inspect the source when something needs checking.
+            </p>
+            <div class="tagline">Unrelated messages, OTPs and promotional messages are ignored by the financial transaction parser.</div>
+          </article>
+
+          <article class="feature">
+            <div class="icon" aria-hidden="true">✓</div>
+            <h3>Correct, don’t restart</h3>
+            <p>
+              Review a transaction, check its source and fix a merchant or category when needed. The goal is useful automation you can verify, not a record you have to blindly trust.
+            </p>
+          </article>
+
+          <article class="feature half">
+            <div class="icon" aria-hidden="true">₹</div>
+            <h3>Safe-to-Spend</h3>
+            <p>
+              A balance is not the same as available money. Safe-to-Spend uses your recorded liquid balance, buffer and upcoming obligations to estimate what appears available after commitments — with a breakdown of what was set aside and why.
+            </p>
+          </article>
+
+          <article class="feature half">
+            <div class="icon" aria-hidden="true">▦</div>
+            <h3>Cards, bills and budgets in context</h3>
+            <p>
+              Track credit-card statements, recorded payments, remaining amounts and due dates alongside monthly budgets, categories and spending trends so the pieces do not live in separate apps or spreadsheets.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="icon" aria-hidden="true">⌁</div>
+            <h3>Financial timeline</h3>
+            <p>
+              Use the ledger, calendar and timeline to understand what happened, what is due and how recorded financial events connect across time.
+            </p>
+          </article>
+
+          <article class="feature large">
+            <div class="icon" aria-hidden="true">AI</div>
+            <h3>MoneyTempoAI works from your MoneyTempo records</h3>
+            <p>
+              On supported devices, install the optional on-device AI model only when you want it. Ask supported questions about spending, balances, cards, budgets, goals and other records, then inspect the underlying MoneyTempo data instead of treating an answer as a mystery.
+            </p>
+            <div class="tagline">Normal MoneyTempoAI prompts and local chat history are not sent to a cloud LLM service.</div>
+          </article>
+
+          <article class="feature half">
+            <div class="icon" aria-hidden="true">◇</div>
+            <h3>See beyond this month</h3>
+            <p>
+              Record assets, liabilities, stocks, mutual funds and other holdings to build a personal net-worth view and explore longer-term financial scenarios. Investment holdings and current prices/NAVs are entered manually.
+            </p>
+          </article>
+
+          <article class="feature half">
+            <div class="icon" aria-hidden="true">⇄</div>
+            <h3>Your records can leave when you choose</h3>
+            <p>
+              Export local financial records to a destination you choose and restore supported local JSON files without creating a MoneyTempo account. Google Drive/cloud backup is not enabled in this release.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="section-kicker">How to use MoneyTempo</div>
+        <h2>From financial alert to financial understanding.</h2>
+        <p class="section-intro">
+          The core flow is designed to be easy to understand and easy to reverse. Permissions remain under Android control, and optional online features are separate choices.
+        </p>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">01</div>
+            <h3>Read the SMS disclosure</h3>
+            <p>MoneyTempo explains why SMS access is requested before Android asks you for permission.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">02</div>
+            <h3>Enable automatic tracking</h3>
+            <p>Grant SMS access to import existing supported financial alerts and detect new ones.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">03</div>
+            <h3>Review your records</h3>
+            <p>Open transactions, inspect source details and correct merchants or categories when required.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">04</div>
+            <h3>Plan around real commitments</h3>
+            <p>Use budgets, cards, bills, calendar and Safe-to-Spend to see what your recorded money needs to cover.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">05</div>
+            <h3>Go deeper when you want</h3>
+            <p>Add goals, holdings and the optional MoneyTempoAI model only if those tools are useful to you.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="use-cases">
+      <div class="wrap">
+        <div class="section-kicker">Where MoneyTempo fits</div>
+        <h2>Use it for the decisions that happen between paydays.</h2>
+        <p class="section-intro">
+          MoneyTempo is not built to move your money. It is built to make your own financial records easier to understand before you decide what to do next.
+        </p>
+
+        <div class="use-grid">
+          <article class="use-card">
+            <div class="use-symbol">↯</div>
+            <div><h3>Daily spending</h3><p>Let supported financial SMS reduce repetitive transaction entry, then review only what needs attention.</p></div>
+          </article>
+          <article class="use-card">
+            <div class="use-symbol">₹</div>
+            <div><h3>Before a purchase</h3><p>Check Safe-to-Spend instead of treating the full recorded bank balance as freely available cash.</p></div>
+          </article>
+          <article class="use-card">
+            <div class="use-symbol">▦</div>
+            <div><h3>Credit-card month end</h3><p>Keep statements, recorded payments, remaining amounts and due dates alongside the rest of your finances.</p></div>
+          </article>
+          <article class="use-card">
+            <div class="use-symbol">⌁</div>
+            <div><h3>Budget review</h3><p>Compare categories, merchants, periods and budget progress using the records already in MoneyTempo.</p></div>
+          </article>
+          <article class="use-card">
+            <div class="use-symbol">◇</div>
+            <div><h3>Net-worth check-in</h3><p>Bring manually entered assets, liabilities and investments into a broader personal financial view.</p></div>
+          </article>
+          <article class="use-card">
+            <div class="use-symbol">AI</div>
+            <div><h3>When you have a question</h3><p>Use optional MoneyTempoAI on supported devices to ask about your recorded data without requiring a cloud financial-chat account.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="wrap">
+        <div class="section-kicker">Privacy is part of the product</div>
+        <h2>MoneyTempo helps you understand your money without taking control of it.</h2>
+
+        <div class="privacy-card">
+          <div class="privacy-copy">
+            <h3>Private by default, explicit when online.</h3>
+            <p>
+              Core financial SMS processing and your main financial records are local to the app. Features that need network access are separate, optional actions and are described before you use them.
+            </p>
+            <div class="hero-actions" style="justify-content:flex-start;margin-top:25px">
+              <a class="btn btn-primary" href="privacy-policy.html">Read the full privacy policy</a>
+              <a class="btn btn-secondary" href="data-deletion.html">Data deletion</a>
+            </div>
+          </div>
+          <div class="privacy-list">
+            <div class="privacy-item">No MoneyTempo account required</div>
+            <div class="privacy-item">No bank login required</div>
+            <div class="privacy-item">Financial records stored in an encrypted local database</div>
+            <div class="privacy-item">No advertising SDK in the current release</div>
+            <div class="privacy-item">No developer analytics or crash-upload SDK in the current release</div>
+            <div class="privacy-item">Location is optional and off by default</div>
+            <div class="privacy-item">No continuous background location permission</div>
+            <div class="privacy-item">Optional AI model download and answer reporting are user-triggered</div>
+          </div>
+        </div>
+
+        <p class="notice">
+          MoneyTempo is a personal financial recordkeeping and educational analysis tool. It is not a bank, lender, wallet or brokerage. It does not transfer funds, place trades, automatically fetch live investment prices or guarantee financial outcomes.
+        </p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-kicker">Questions</div>
+        <h2>What people usually want to know first.</h2>
+
+        <div class="faq">
+          <details>
+            <summary>Does MoneyTempo need my bank login?</summary>
+            <p>No. MoneyTempo does not require your bank username, password or a MoneyTempo account for the core local finance experience.</p>
+          </details>
+          <details>
+            <summary>Why does MoneyTempo request SMS permission?</summary>
+            <p>Automatic financial tracking is a core feature. With your permission, MoneyTempo reads existing and incoming supported financial SMS to identify bank, card and UPI/payment transactions. Core parsing happens on your device.</p>
+          </details>
+          <details>
+            <summary>Does MoneyTempo read every SMS as a transaction?</summary>
+            <p>No. The financial parser is designed to ignore unrelated messages and reject common non-transaction content such as OTPs and promotional messages. Relevant financial messages can be retained locally with the corresponding record so you can inspect the source.</p>
+          </details>
+          <details>
+            <summary>Does MoneyTempo pay bills or move money?</summary>
+            <p>No. Recording a payment in MoneyTempo updates your bookkeeping only. MoneyTempo does not send money to a bank, pay a bill or act as a wallet.</p>
+          </details>
+          <details>
+            <summary>Does MoneyTempoAI send my questions to a cloud AI?</summary>
+            <p>After the optional model is installed on a supported device, supported MoneyTempoAI inference runs on-device. Optional answer reporting is separate: you review the exact text before choosing to submit a report.</p>
+          </details>
+          <details>
+            <summary>Does the investment section connect to my broker?</summary>
+            <p>No. Holdings and current price/NAV values are entered manually in the current release. MoneyTempo does not connect to a broker or execute trades.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="wrap">
+        <div class="cta-card">
+          <div class="section-kicker">MoneyTempo</div>
+          <h2>Your financial alerts already tell a story. MoneyTempo helps you read it.</h2>
+          <p>
+            Automatic financial SMS tracking, Safe-to-Spend, cards, budgets, timeline, net worth and optional on-device AI — designed around your records and your control.
+          </p>
+          <div class="hero-actions">
+            <span class="btn btn-primary" role="status" aria-label="Google Play closed testing in progress">Google Play closed testing in progress</span>
+            <a class="btn btn-secondary" href="mailto:financemoneytempo@gmail.com">Contact support</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">MT</span>
+          <span>MoneyTempo</span>
+        </a>
+        <div class="footer-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="data-deletion.html">Data Deletion</a>
+          <a href="terms.html">Terms</a>
+          <a href="mailto:financemoneytempo@gmail.com">Support</a>
+        </div>
+      </div>
+      <div class="legal">
+        © <span id="year">2026</span> MoneyTempo. MoneyTempo is a personal finance recordkeeping and analysis tool. Estimates depend on the records and assumptions available in the app and should not be treated as guaranteed financial outcomes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn?.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+
+    navLinks?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      });
+    });
+
+    const year = document.getElementById('year');
+    if (year) year.textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
