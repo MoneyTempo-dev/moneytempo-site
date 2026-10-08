@@ -15,7 +15,32 @@
 <h2>Exports and sharing</h2>
 <p>Sharing a report or export sends the selected content to the app or destination you choose. Encrypted backup export is available. Explicit plaintext JSON/CSV exports contain readable financial information; keep them secure. The default general JSON export omits raw SMS, transaction coordinates and deleted-entry recovery copies. Full encrypted backups retain these records for recovery. App-lock PIN credentials and recent feature-search history are excluded from both. Files copied outside the app remain under your control and are not deleted by a local reset.</p>
 <h2>Storage, security and retention</h2>
-<p>Financial records are stored in the app&#x27;s private database using SQLCipher encryption. Encryption failure blocks access instead of deliberately falling back to plaintext on a device. PIN/biometric app lock and redacted lock-screen notifications are supported. Android automatic cloud backup and device transfer of app-owned data are excluded; the separately enabled Drive feature is described above.<br>Deleting a ledger transaction removes it from balances and reports but retains an encrypted recovery copy until restored or local app data is cleared. Recovery copies include the original metadata, message and any saved location, and are included in optional full encrypted backups. Use Undo or Settings &gt; Restore last deletion to recover them. Full factory reset removes local recovery copies; it does not delete existing cloud backups or exported files. Profile &gt; Privacy &amp; data &gt; Delete all local data asks Android to clear the app&#x27;s database, preferences, profile files and caches and close the app. This does not delete original SMS in your messaging app, Google-account service data, existing Drive backups or files exported elsewhere. For Drive deletion, use the backup controls first. You can also clear storage or uninstall through Android settings.</p>
+<p>
+Financial records are stored in the app's private database using SQLCipher encryption.
+Encryption failure blocks access instead of deliberately falling back to plaintext on a device.
+PIN/biometric app lock and redacted lock-screen notifications are supported.
+Android automatic cloud backup and device transfer of app-owned data are excluded; no separate
+automatic cloud backup runs in this release.
+</p>
+
+<p>
+Deleting a ledger transaction removes it from balances and reports but retains an encrypted
+recovery copy until restored or local app data is cleared. Recovery copies include the original
+metadata, message and any saved location, and are excluded from the default general JSON export.
+Use Undo or Data Management &gt; Restore last deletion to recover them.
+</p>
+
+<p>
+Full factory reset in Data Management removes local recovery copies; it does not delete files
+exported elsewhere. Privacy &amp; data links to Data Management for local-data export, recovery
+and reset controls. Full factory reset asks Android to clear the app's database, preferences,
+profile files and caches and close the app.
+</p>
+
+<p>
+This does not delete original SMS in your messaging app or files exported elsewhere.
+You can also clear MoneyTempo's storage or uninstall the app through Android settings.
+</p>
 <h2>Advertising, analytics and advice</h2>
 <p>This source version includes no developer advertising, remote analytics or crash-upload SDK. Google platform services and external content providers may process operational information under their own policies. MoneyTempoAI is on-device rule-based financial analysis, not a cloud chatbot. Its estimates and educational suggestions can be wrong and do not place trades, transfer funds or make payments.</p>
 <h2>Support and changes</h2>
