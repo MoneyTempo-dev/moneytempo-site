@@ -1,48 +1,331 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MoneyTempo Privacy Policy</title></head><body><main>
-<h1>MoneyTempo Privacy Policy</h1>
-<p>Effective date: 08 October 2026<br>Privacy and support contact: financemoneytempo@gmail.com</p>
-<h2>About MoneyTempo</h2>
-<p>MoneyTempo helps you record and understand your finances. Its transaction database and MoneyTempoAI analysis run on your device. MoneyTempo does not operate a developer server that receives your financial records. Some optional features connect directly to outside services, as described below.</p>
-<h2>Financial messages and local records</h2>
-<p>With your permission, MoneyTempo reads existing and incoming SMS to identify financial messages from banks, card providers and payment services. Detection can run while the app is closed. It stores relevant original messages and extracted transactions locally so you can review their source. Unrelated messages are ignored. Disabling SMS permission stops access; manual entry remains available. MoneyTempo does not send messages or delete messages from your phone&#x27;s SMS app.<br>Records can include amounts, merchants, account suffixes, balances, categories, dates, notes, portfolio holdings, budgets, goals, tasks, family entries and your optional local profile name/photo. The developer does not receive these records through normal app use. A name or Google email may be stored locally; it would be inaccurate to say the app never stores names or email addresses.</p>
-<h2>Optional location and maps</h2>
-<p>If you enable transaction location and grant Android permission, the app can attach an approximate or precise current location when you add a transaction or open a recent transaction notification. It does not continuously track you or request background-location access. A stale or unavailable location is skipped.<br>Online maps are a separate choice, initially off. When enabled, OpenStreetMap or Esri receives tile requests identifying the viewed area and the network IP address. Place-name lookup may send coordinates to your device&#x27;s geocoding provider. Map markers, amounts and SMS are drawn locally, not included in tile requests. Location services themselves may process data under their provider&#x27;s policies. You can disable transaction location and online maps separately in Profile &gt; Privacy &amp; data; saved locations remain with their records, including recovery copies after a ledger deletion, until local app data is cleared.</p>
-<h2>Manual investment prices</h2>
-<p>You enter investment names, identifiers, units, purchase costs and current prices or NAVs yourself. The production portfolio does not search investment websites or fetch market prices. Prices previously saved by an earlier version remain local and are identified by their saved date. A new manual price is saved for today and used for holdings sharing its identifier; entering a price does not change purchase cost or units. Portfolio values use the last saved price, or purchase cost when none exists. These are recordkeeping estimates and may be outdated. Investment records can be included in the optional personal backup or exports described below.</p>
-<h2>Recent feature searches</h2>
-<p>When you select a feature from a typed global search, the app keeps up to five recent queries and their feature destinations in its encrypted local database. Use Clear recent searches inside global search to delete this history. History is not sent to analytics, included in exports or backups, or restored from a backup. Clearing local app data or restoring a backup removes it.</p>
-<h2>Exports and sharing</h2>
-<p>Sharing a report or export sends the selected content to the app or destination you choose. Encrypted backup export is available. Explicit plaintext JSON/CSV exports contain readable financial information; keep them secure. The default general JSON export omits raw SMS, transaction coordinates and deleted-entry recovery copies. Full encrypted backups retain these records for recovery. App-lock PIN credentials and recent feature-search history are excluded from both. Files copied outside the app remain under your control and are not deleted by a local reset.</p>
-<h2>Storage, security and retention</h2>
-<p>
-Financial records are stored in the app's private database using SQLCipher encryption.
-Encryption failure blocks access instead of deliberately falling back to plaintext on a device.
-PIN/biometric app lock and redacted lock-screen notifications are supported.
-Android automatic cloud backup and device transfer of app-owned data are excluded; no separate
-automatic cloud backup runs in this release.
-</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MoneyTempo Privacy Policy</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --line: #e7eaf0;
+      --accent: #9a6a00;
+      --card: #f7f8fa;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --text: #f2f4f7;
+        --muted: #b4bdc9;
+        --line: #2a2f38;
+        --accent: #e5b94f;
+        --card: #171a20;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 22px 72px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      margin-top: 38px;
+      margin-bottom: 10px;
+      font-size: 1.35rem;
+      line-height: 1.3;
+    }
+    p, li {
+      font-size: 1rem;
+    }
+    .meta {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .summary {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 24px 0 30px;
+    }
+    a {
+      color: var(--accent);
+      text-underline-offset: 3px;
+    }
+    ul {
+      padding-left: 1.25rem;
+    }
+    footer {
+      margin-top: 46px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>MoneyTempo Privacy Policy</h1>
+  <p class="meta">
+    Effective date: 8 October 2026<br>
+    Privacy and support contact:
+    <a href="mailto:financemoneytempo@gmail.com">financemoneytempo@gmail.com</a>
+  </p>
 
-<p>
-Deleting a ledger transaction removes it from balances and reports but retains an encrypted
-recovery copy until restored or local app data is cleared. Recovery copies include the original
-metadata, message and any saved location, and are excluded from the default general JSON export.
-Use Undo or Data Management &gt; Restore last deletion to recover them.
-</p>
+  <div class="summary">
+    <strong>Privacy in brief:</strong>
+    MoneyTempo is designed to keep your core financial records on your device.
+    We do not require a MoneyTempo account, and we do not automatically upload
+    your financial SMS, transaction history, budgets, portfolio records, or
+    MoneyTempoAI chat history to our servers. Some optional features connect to
+    external services only when you choose to use them, as explained below.
+  </div>
 
-<p>
-Full factory reset in Data Management removes local recovery copies; it does not delete files
-exported elsewhere. Privacy &amp; data links to Data Management for local-data export, recovery
-and reset controls. Full factory reset asks Android to clear the app's database, preferences,
-profile files and caches and close the app.
-</p>
+  <h2>1. Financial SMS and local financial records</h2>
+  <p>
+    With your permission, MoneyTempo can read existing and incoming SMS messages
+    to identify financial messages from banks, card providers, UPI services,
+    wallets, and other payment services. This can include SMS processing while
+    the app is closed.
+  </p>
+  <p>
+    Relevant financial messages and the transactions extracted from them are
+    stored locally on your device so you can review their source. Unrelated
+    messages are ignored. If you disable SMS permission, MoneyTempo stops
+    accessing SMS and you can continue using manual transaction entry.
+  </p>
+  <p>
+    MoneyTempo does not send SMS messages on your behalf and does not delete
+    messages from your phone's messaging app.
+  </p>
+  <p>
+    Local financial records may include amounts, merchants, account or card
+    suffixes, balances, categories, dates, notes, budgets, goals, portfolio
+    records, manual investment prices, tasks, family entries, and related
+    financial calculations.
+  </p>
 
-<p>
-This does not delete original SMS in your messaging app or files exported elsewhere.
-You can also clear MoneyTempo's storage or uninstall the app through Android settings.
-</p>
-<h2>Advertising, analytics and advice</h2>
-<p>This source version includes no developer advertising, remote analytics or crash-upload SDK. Google platform services and external content providers may process operational information under their own policies. MoneyTempoAI is on-device rule-based financial analysis, not a cloud chatbot. Its estimates and educational suggestions can be wrong and do not place trades, transfer funds or make payments.</p>
-<h2>Support and changes</h2>
-<p>If you contact financemoneytempo@gmail.com, your email provider and ours process the message you choose to send. Avoid sending raw bank messages, account numbers or backups unless necessary for a specific support request. We use support correspondence to respond to you. This policy should be updated when the app&#x27;s data handling changes; the current public version must also be linked from the Play Store listing.</p>
-</main></body></html>
+  <h2>2. Profile name and profile photo</h2>
+  <p>
+    You can optionally add a profile name and choose a profile photo. These are
+    stored locally on your device. MoneyTempo uses Android's system photo picker,
+    so you choose the specific image you want to use rather than granting broad
+    access to your photo library.
+  </p>
+  <p>
+    The selected profile image is copied into MoneyTempo's private app storage
+    and is not automatically uploaded.
+  </p>
+
+  <h2>3. Location and maps</h2>
+  <p>
+    Location is optional and off by default. If you enable transaction location
+    and grant Android permission, MoneyTempo can attach an approximate or precise
+    current location when you add a transaction or open a recent transaction
+    notification. MoneyTempo does not request background-location access and does
+    not continuously track your location.
+  </p>
+  <p>
+    Online maps are a separate optional feature. When enabled, OpenStreetMap may
+    receive requests that identify the map area you are viewing together with
+    normal network information such as your IP address. Place-name lookup may
+    send coordinates to the geocoding provider available on your device.
+  </p>
+  <p>
+    Transaction amounts, financial SMS content, and map markers are not included
+    in map tile requests. You can disable transaction location and online maps
+    separately in MoneyTempo's privacy settings.
+  </p>
+
+  <h2>4. Manual investment records</h2>
+  <p>
+    MoneyTempo's portfolio features are for personal recordkeeping. You enter
+    investment names, identifiers, quantities, purchase costs, and current prices
+    or NAVs yourself.
+  </p>
+  <p>
+    The current release does not connect to a broker, place trades, custody
+    assets, or automatically fetch live investment prices. Portfolio records and
+    calculations stay local unless you explicitly export them.
+  </p>
+
+  <h2>5. Search history</h2>
+  <p>
+    MoneyTempo can keep a small recent history of feature searches on your device
+    to make navigation faster. This history is stored locally, is not sent to an
+    analytics service, and can be cleared from within the app.
+  </p>
+
+  <h2>6. Import, export, and sharing</h2>
+  <p>
+    MoneyTempo supports local CSV and JSON import/export. File selection and save
+    locations are chosen by you through Android's system file interfaces.
+  </p>
+  <p>
+    Plaintext CSV or JSON exports can contain readable financial information, so
+    keep exported files secure. Files saved or shared outside MoneyTempo remain
+    under your control and are not removed when you clear MoneyTempo's local app
+    data.
+  </p>
+  <p>
+    MoneyTempo does not provide Google Drive backup or Google sign-in in the
+    current release. Cloud backup may be introduced in a future version, in which
+    case this policy will be updated before that feature is made available.
+  </p>
+
+  <h2>7. MoneyTempoAI</h2>
+  <p>
+    MoneyTempoAI is designed to run on your device. The optional AI model is
+    downloaded only if you choose to install it. The model download is made over
+    HTTPS from Hugging Face and its delivery providers.
+  </p>
+  <p>
+    Download providers receive the normal information required to deliver the
+    file, such as network request information and IP address. Your financial
+    records and MoneyTempoAI prompts are not included in the model download
+    request.
+  </p>
+  <p>
+    After the model is installed, MoneyTempoAI analysis and chat inference run on
+    your device. We do not send normal MoneyTempoAI prompts or your local chat
+    history to a cloud AI service.
+  </p>
+  <p>
+    AI chat history is stored in MoneyTempo's private encrypted storage for up to
+    30 days, subject to a maximum of 200 messages or 2 MB of serialized history,
+    whichever limit is reached first. You can delete chat history from the chat
+    screen.
+  </p>
+
+  <h2>8. Optional MoneyTempoAI answer reports</h2>
+  <p>
+    If you choose to report a MoneyTempoAI answer, MoneyTempo lets you review and
+    edit the answer excerpt, choose a reason, add optional details, and confirm
+    before anything is sent.
+  </p>
+  <p>
+    A submitted report can include the text you choose to send, an anonymous
+    random report reference, and the app version. Your full question, full chat
+    history, ledger, email address, and device identifier are not automatically
+    attached.
+  </p>
+  <p>
+    Because an answer excerpt can contain financial or other private information,
+    review it carefully and remove anything you do not want to submit.
+  </p>
+  <p>
+    MoneyTempo sends reports over HTTPS to our Google Apps Script reporting
+    service, which forwards the report to
+    <a href="mailto:financemoneytempo@gmail.com">financemoneytempo@gmail.com</a>.
+    Google processes the submitted content and normal request/network information
+    under Google's own privacy terms.
+  </p>
+  <p>
+    We use submitted reports for quality and safety review. We permanently delete
+    report email content, including sent copies, within 30 days. Short-lived
+    report references, hashes, timestamps, and submission-state records used for
+    retry protection are retained for up to seven days after expiry and do not
+    contain the submitted answer text.
+  </p>
+  <p>
+    Reporting is optional and does not change your financial records or normal
+    MoneyTempoAI use.
+  </p>
+
+  <h2>9. Advertising, analytics, and crash reporting</h2>
+  <p>
+    The current release does not include advertising, developer analytics, or a
+    crash-upload SDK. Google Play and external service providers may process
+    operational information under their own policies when you use their platform
+    or an optional connected feature.
+  </p>
+
+  <h2>10. Security and local storage</h2>
+  <p>
+    Financial records are stored in MoneyTempo's private database using SQLCipher
+    encryption. MoneyTempo does not intentionally fall back to plaintext storage
+    if database encryption fails.
+  </p>
+  <p>
+    MoneyTempo also supports an optional PIN or biometric app lock and supports
+    redacted lock-screen notifications.
+  </p>
+  <p>
+    Android automatic backup and device transfer of MoneyTempo-owned app data are
+    disabled for this release.
+  </p>
+
+  <h2>11. Deleting your data</h2>
+  <p>
+    You can delete MoneyTempo's local app data from:
+  </p>
+  <ul>
+    <li>MoneyTempo &gt; Privacy &amp; data &gt; Data Management &gt; Full Factory Reset &amp; Clean State, or</li>
+    <li>Android Settings &gt; Apps &gt; MoneyTempo &gt; Storage &gt; Clear storage.</li>
+  </ul>
+  <p>
+    Clearing MoneyTempo's local data removes the app's database, preferences,
+    profile files, cached files, and other MoneyTempo-owned local data. It does
+    not delete the original SMS messages from your phone's messaging app and does
+    not delete files you previously exported outside MoneyTempo.
+  </p>
+  <p>
+    Deleting an individual ledger transaction removes it from balances and
+    reports but keeps an encrypted recovery copy until you restore it or clear
+    MoneyTempo's local app data.
+  </p>
+  <p>
+    If you previously submitted a MoneyTempoAI answer report and want it removed,
+    email
+    <a href="mailto:financemoneytempo@gmail.com">financemoneytempo@gmail.com</a>
+    and include the anonymous report reference shown when the report was
+    submitted.
+  </p>
+  <p>
+    You can also review the dedicated
+    <a href="https://moneytempo-dev.github.io/moneytempo-site/data-deletion.html">MoneyTempo Data Deletion page</a>.
+  </p>
+
+  <h2>12. Support correspondence</h2>
+  <p>
+    If you contact us by email, your email provider and ours process the message
+    you choose to send. Please avoid sending raw bank SMS messages, full account
+    numbers, backup files, or other sensitive financial information unless it is
+    necessary for a specific support request.
+  </p>
+
+  <h2>13. Changes to this policy</h2>
+  <p>
+    We may update this privacy policy when MoneyTempo's features or data-handling
+    practices change. The current version will remain available from the Google
+    Play listing and the MoneyTempo website.
+  </p>
+
+  <h2>14. Contact</h2>
+  <p>
+    For privacy questions, support, or deletion requests, contact:
+    <a href="mailto:financemoneytempo@gmail.com">financemoneytempo@gmail.com</a>
+  </p>
+
+  <footer>
+    © 2026 MoneyTempo
+  </footer>
+</main>
+</body>
+</html>
